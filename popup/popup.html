@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Points Deal Checker</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+  <header>
+    <span class="logo" aria-hidden="true">✈️</span>
+    <h1>Points Deal Checker</h1>
+    <a href="#" id="dashboard-link" title="Balances & settings" aria-label="Balances and settings">⚙</a>
+  </header>
+
+  <div class="field-row">
+    <label class="field grow">Transfer to
+      <select id="partner" class="input"></select>
+    </label>
+    <label class="field">Bonus?
+      <select id="bonus" class="input">
+        <option value="0">None</option>
+        <option value="15">+15%</option>
+        <option value="20">+20%</option>
+        <option value="25">+25%</option>
+        <option value="30">+30%</option>
+        <option value="40">+40%</option>
+        <option value="custom">Other…</option>
+      </select>
+    </label>
+  </div>
+  <input id="bonus-custom" class="input hidden" type="text" inputmode="numeric" placeholder="Bonus % e.g. 35">
+
+  <div class="field-row">
+    <label class="field grow">Award price (miles)
+      <input id="miles" class="input" type="text" inputmode="numeric" placeholder="e.g. 45,000">
+    </label>
+    <label class="field">Award fees ($)
+      <input id="fees" class="input" type="text" inputmode="decimal" placeholder="e.g. 120">
+    </label>
+  </div>
+
+  <label class="field">Cash price of the same ticket ($)
+    <input id="cash" class="input" type="text" inputmode="decimal" placeholder="check Google Flights, paste it here">
+  </label>
+
+  <div class="field-row balances">
+    <label class="field grow" id="partner-bal-label">Airline miles you have
+      <input id="partner-bal" class="input" type="text" inputmode="numeric" placeholder="0">
+    </label>
+    <label class="field grow">Amex points you have
+      <input id="mr-bal" class="input" type="text" inputmode="numeric" placeholder="0">
+    </label>
+  </div>
+
+  <div id="result"></div>
+
+  <div class="save-row hidden" id="save-row">
+    <input id="deal-label" class="input" placeholder="Label it, e.g. JFK→LHR Virgin Upper">
+    <button id="save-btn" class="btn">Save</button>
+  </div>
+
+  <script src="../shared/defaults.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

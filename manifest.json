@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Points Deal Checker",
+  "version": "0.1.0",
+  "description": "Sanity-check airline award deals: how many Amex points to transfer, what they're worth, and whether to just pay cash. All local.",
+  "permissions": ["storage"],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Points Deal Checker"
+  },
+  "options_ui": {
+    "page": "dashboard/dashboard.html",
+    "open_in_tab": true
+  }
+}
