@@ -13,8 +13,37 @@
       <h1>Points Transfer Decision</h1>
       <p class="tagline">Trip first · real prices second · bonus last</p>
     </div>
-    <button id="reset-btn" class="ghost-btn" title="Start a new trip">New trip</button>
+    <button id="back-btn" class="ghost-btn hidden">← Home</button>
+    <button id="reset-btn" class="ghost-btn hidden" title="Start a new trip">New trip</button>
   </header>
+
+  <!-- ======================================================================
+       HOME — meet the user where they actually are.
+       Most people arrive because a bonus caught their eye. Give that impulse
+       its own door, then walk it through the right order anyway.
+  ======================================================================= -->
+  <div id="view-home" class="view">
+    <button id="go-bonus" class="big-btn">
+      <span class="big-btn-title">👀 I saw a bonus</span>
+      <span class="big-btn-sub">"+30% to Virgin!" — find out if it actually matters</span>
+    </button>
+    <button id="go-trip" class="big-btn big-btn-2">
+      <span class="big-btn-title">🗺️ I'm planning a trip</span>
+      <span class="big-btn-sub">Compare every program you hold for one route</span>
+    </button>
+    <div id="home-bonuses"></div>
+  </div>
+
+  <!-- ======================================================================
+       BONUS WIZARD — one question at a time, rendered by popup.js.
+       Captures the bonus (defusing the urgency), then refuses to go further
+       without a real trip, a real cash anchor, and a real award price.
+  ======================================================================= -->
+  <div id="view-wizard" class="view hidden">
+    <div id="wizard"></div>
+  </div>
+
+  <div id="view-trip" class="view hidden">
 
   <!-- ======================================================================
        STEP 1 — DESTINATION + PROGRAMS HELD
@@ -81,6 +110,8 @@
       <button id="bonus-add" class="btn btn-sm">Add</button>
     </div>
   </section>
+
+  </div><!-- /view-trip -->
 
   <footer>
     Partner list &amp; ratios seeded from public charts — verify on the issuer's transfer page before sending.

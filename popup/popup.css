@@ -244,3 +244,79 @@ footer {
 }
 
 .hidden { display: none; }
+
+/* ===== Home: two doors ===== */
+.big-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  text-align: left;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 18px 16px;
+  margin-top: 12px;
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+.big-btn:hover { filter: brightness(1.12); }
+.big-btn-2 { background: var(--card); color: var(--text-1); border: 1px solid var(--border); }
+.big-btn-2:hover { border-color: var(--accent); filter: none; }
+.big-btn-title { font-size: 1rem; font-weight: 800; }
+.big-btn-sub { font-size: 0.75rem; opacity: 0.85; font-weight: 500; }
+.big-btn-2 .big-btn-sub { color: var(--text-2); }
+
+.home-bonus-head { font-size: 0.72rem; color: var(--text-3); margin: 16px 0 6px; font-weight: 600; }
+.home-bonus {
+  font-size: 0.78rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 10px;
+  margin-bottom: 5px;
+}
+.home-bonus span { color: var(--text-3); font-size: 0.7rem; }
+
+/* ===== Wizard ===== */
+.wiz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 10px; }
+.wiz-grid .field { margin-bottom: 4px; }
+
+.wiz-calm {
+  font-size: 0.8rem;
+  line-height: 1.55;
+  background: #e2f0e7;
+  border: 1px solid #b9d8c4;
+  color: #1f5636;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+}
+
+.wiz-choice { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.btn-quiet { background: var(--card); color: var(--text-1); border: 1px solid var(--border); font-weight: 600; }
+.btn-quiet:hover { border-color: var(--accent); filter: none; }
+
+.wiz-stop {
+  background: #fbe3de;
+  border: 1px solid #eebbb1;
+  color: #6d2a1e;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+.wiz-stop p + p { margin-top: 8px; }
+.wiz-stop-head { font-size: 0.95rem; font-weight: 800; }
+
+.seat-big {
+  margin: 12px 0;
+  font-size: 0.8rem;
+  background: #fdfdfb;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.btn { margin-top: 10px; }
