@@ -1,47 +1,42 @@
-# ✈️ Points Deal Checker
+# 💳✈️ Points Transfer Decision
 
-A Chrome/Edge extension that answers one question in plain English: **is this award flight worth transferring Amex points for, or should you just pay cash?** All data stays local in your browser.
+A Chrome extension (Manifest V3) that fixes the backwards way people use credit card points:
 
-## The math, dumbed down
+> **The problem:** you see "+30% bonus to Virgin Atlantic!", transfer points first, and look for a flight second. Transfers are final. If the flight isn't there — or is a bad deal — those points are stranded.
 
-```
-value of the deal = (cash price − award taxes/fees) ÷ points you'd transfer
-```
+This tool enforces the right order:
 
-That gives **cents per Amex point**. The verdict:
+1. **Trip first** — where are you going, which points do you hold? The built-in transfer-partner table (Amex MR, Chase UR, Citi TYP, Capital One) shows which programs your points can actually reach, with alliance hints for coverage.
+2. **Real prices second** — for each promising program you check *their own site* and type in the real points price and taxes/fees. Nothing gets ranked until you do. The extension never invents award prices.
+3. **Bonus last, as a tiebreaker only** — paste in bonuses you've seen (program, %, expiry). They discount options you've *already priced*. A bonus on an unpriced partner gets a nudge ("price it first"), never a ranking.
 
-- 🔴 **under 1¢** — just pay cash (the Amex travel portal gets you ~1¢ with zero hassle, so anything below that is a bad trade)
-- 🟡 **1–1.5¢** — borderline, your call
-- 🟢 **over 1.5¢** — transfer, the points win
+The **"Am I ready to transfer?"** button is the final gate — it refuses to bless a transfer until you've priced a real award, confirmed the seat exists, and have enough points. Then it tells you exactly what to send where, in plain English.
 
-(Thresholds are editable in Settings.)
+## What it deliberately does NOT do
 
-## How to use it
+- ❌ No booking, payments, or account access — it's a calculator
+- ❌ No scraping of loyalty sites (fragile, against ToS) — you paste real numbers
+- ❌ No stored credentials
+- ❌ No backend, no external API calls — everything stays in your browser
 
-1. Find an award flight on an airline site (or in a deal newsletter)
-2. Check the cash price for the same flight on Google Flights
-3. Click ✈️ → pick the airline → enter award miles, award fees, cash price
-4. Read the verdict
+## What you enter (because it changes constantly)
 
-The extension remembers your Amex and airline balances, so it tells you exactly how many Amex points to transfer (accounting for what you already have, the transfer ratio, any transfer bonus, and Amex's 1,000-point increments) — and warns you if:
+- Your balances per program
+- The award prices/fees you looked up
+- Active transfer bonuses and their expiry dates
 
-- you don't have enough points
-- fees are eating the "deal"
-- you're about to transfer before confirming the award seat exists (**transfers are one-way!**)
+## Numbers it computes
 
-## Install (unpacked)
+- **Points you'd actually send** — accounting for the transfer ratio ("send 1 → get 0.8" for Amex→JetBlue), rounded up to the issuer's transfer increment, minus nothing (partial transfers hoping to "top up later" get a warning instead)
+- **Value per point sent** — (cash price − award fees) ÷ points sent, so wildly different options are apples-to-apples
+- **Transfer fee flags** — e.g. Amex adds a fee to some US airline transfers; flagged, not computed, because fee rules drift
 
-1. Open `chrome://extensions` (or `edge://extensions`)
-2. Turn on **Developer mode** → **Load unpacked** → pick this folder
-3. Pin the ✈️ icon
+## Install
 
-## Dashboard
+1. `chrome://extensions` → **Developer mode** → **Load unpacked** → this folder
+2. Pin the icon; your in-progress research persists between popup openings
+3. **New trip** clears the research but keeps your balances, programs, and bonuses
 
-- **Balances & Partners** — your Amex balance, per-airline balances, and the transfer-ratio table (editable; Amex changes partners occasionally). Links to a current transfer-bonus tracker.
-- **Deal History** — deals you saved, so you learn what "good" looks like on your routes
-- **Settings** — verdict thresholds
+## Data freshness
 
-## Notes
-
-- Transfer bonuses are entered manually (a dropdown: +15% to +40% or custom) — reliable beats automated-but-stale.
-- Partner list ships with Amex US Membership Rewards airline partners as of mid-2026; edit freely.
+The partner/ratio table in `shared/data.js` is seeded from public transfer charts (last reviewed July 2026). Issuers change these without notice — **always verify on the issuer's transfer page before sending points.**

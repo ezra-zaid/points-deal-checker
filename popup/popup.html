@@ -2,65 +2,92 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Points Deal Checker</title>
+  <title>Points Transfer Decision</title>
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
 
   <header>
-    <span class="logo" aria-hidden="true">✈️</span>
-    <h1>Points Deal Checker</h1>
-    <a href="#" id="dashboard-link" title="Balances & settings" aria-label="Balances and settings">⚙</a>
+    <span class="logo" aria-hidden="true">💳✈️</span>
+    <div class="head-text">
+      <h1>Points Transfer Decision</h1>
+      <p class="tagline">Trip first · real prices second · bonus last</p>
+    </div>
+    <button id="reset-btn" class="ghost-btn" title="Start a new trip">New trip</button>
   </header>
 
-  <div class="field-row">
-    <label class="field grow">Transfer to
-      <select id="partner" class="input"></select>
+  <!-- ======================================================================
+       STEP 1 — DESTINATION + PROGRAMS HELD
+       Nothing below this section means anything until we know where you're
+       going and which points you actually have.
+  ======================================================================= -->
+  <section>
+    <h2><span class="step-n">1</span> Your trip &amp; your points</h2>
+    <label class="field">Where are you going?
+      <input id="route" class="input" placeholder="e.g. Miami → Providenciales, Turks and Caicos">
     </label>
-    <label class="field">Bonus?
-      <select id="bonus" class="input">
-        <option value="0">None</option>
-        <option value="15">+15%</option>
-        <option value="20">+20%</option>
-        <option value="25">+25%</option>
-        <option value="30">+30%</option>
-        <option value="40">+40%</option>
-        <option value="custom">Other…</option>
+    <label class="field">What does that ticket cost in cash? ($)
+      <input id="cash" class="input" type="text" inputmode="decimal" placeholder="check Google Flights — this is your measuring stick">
+    </label>
+    <p class="sub-label">Which points do you have?</p>
+    <div id="issuers"></div>
+  </section>
+
+  <!-- ======================================================================
+       STEP 2 — REAL PRICES → COMPARISON
+       The table lists every program your points can reach. Rows only get
+       ranked once YOU have typed a real price from the partner's own site.
+       No price = no ranking. This is deliberate.
+  ======================================================================= -->
+  <section>
+    <h2><span class="step-n">2</span> What do the partners actually charge?</h2>
+    <p class="section-hint">
+      Open each promising program's site, search your trip, and type the real numbers here.
+      Nothing gets ranked until you do — guesses don't book flights.
+    </p>
+    <div class="table-controls">
+      <input id="filter" class="input" placeholder="Filter programs…">
+      <select id="sort" class="input">
+        <option value="value">Best value first</option>
+        <option value="send">Fewest points sent</option>
+        <option value="name">A → Z</option>
       </select>
-    </label>
-  </div>
-  <input id="bonus-custom" class="input hidden" type="text" inputmode="numeric" placeholder="Bonus % e.g. 35">
+    </div>
+    <div id="rows"></div>
 
-  <div class="field-row">
-    <label class="field grow">Award price (miles)
-      <input id="miles" class="input" type="text" inputmode="numeric" placeholder="e.g. 45,000">
-    </label>
-    <label class="field">Award fees ($)
-      <input id="fees" class="input" type="text" inputmode="decimal" placeholder="e.g. 120">
-    </label>
-  </div>
+    <div class="decision-box">
+      <button id="decide-btn" class="btn">Am I ready to transfer?</button>
+      <div id="decision"></div>
+    </div>
+  </section>
 
-  <label class="field">Cash price of the same ticket ($)
-    <input id="cash" class="input" type="text" inputmode="decimal" placeholder="check Google Flights, paste it here">
-  </label>
+  <!-- ======================================================================
+       STEP 3 — BONUSES, LAST AND ONLY LAST
+       A transfer bonus adjusts the cost of an option you already priced.
+       It is a tiebreaker between real options — never the reason to transfer.
+  ======================================================================= -->
+  <section>
+    <h2><span class="step-n">3</span> Transfer bonuses <span class="tie">tiebreaker only</span></h2>
+    <p class="section-hint">
+      Saw a "+30% to Virgin!" promo? Add it here and it will discount the options
+      you've <b>already priced</b>. A bonus on a flight you can't book is worth nothing.
+    </p>
+    <div id="bonus-list"></div>
+    <div class="bonus-form">
+      <select id="bonus-issuer" class="input"></select>
+      <select id="bonus-partner" class="input"></select>
+      <input id="bonus-pct" class="input" type="text" inputmode="numeric" placeholder="%">
+      <input id="bonus-exp" class="input" type="date" title="Expires">
+      <button id="bonus-add" class="btn btn-sm">Add</button>
+    </div>
+  </section>
 
-  <div class="field-row balances">
-    <label class="field grow" id="partner-bal-label">Airline miles you have
-      <input id="partner-bal" class="input" type="text" inputmode="numeric" placeholder="0">
-    </label>
-    <label class="field grow">Amex points you have
-      <input id="mr-bal" class="input" type="text" inputmode="numeric" placeholder="0">
-    </label>
-  </div>
+  <footer>
+    Partner list &amp; ratios seeded from public charts — verify on the issuer's transfer page before sending.
+    Calculator only: no scraping, no logins, no bookings. Data never leaves this browser.
+  </footer>
 
-  <div id="result"></div>
-
-  <div class="save-row hidden" id="save-row">
-    <input id="deal-label" class="input" placeholder="Label it, e.g. JFK→LHR Virgin Upper">
-    <button id="save-btn" class="btn">Save</button>
-  </div>
-
-  <script src="../shared/defaults.js"></script>
+  <script src="../shared/data.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>
